@@ -28,3 +28,24 @@ My pipeline consists of the following sequential stages:
 ├── data/                               # Dummy/sample data snippets
 ├── fraud_detection_pipeline.ipynb      # Main Jupyter Notebook with end-to-end SageMaker blocks
 └── requirements.txt                    # Python dependencies
+
+## Getting Started
+
+### Prerequisites
+To run our pipeline, you will need:
+* An active AWS Account with SageMaker Studio or Notebook Instances enabled.
+* The proper IAM Execution Role with permissions for SageMaker, S3, and CloudWatch.
+* The Credit Card Fraud Detection dataset from Kaggle downloaded and converted to a standard CSV format (e.g., `my_project_dataset.csv`).
+
+### Execution
+1. Clone this repository into your SageMaker Studio environment.
+2. Upload `fraud_detection_dataset.csv` to the root directory.
+3. Open `fraud_detection_pipeline.ipynb` and execute the blocks sequentially. The notebook will automatically spin up the required AWS infrastructure, run the jobs, and spin them down to avoid unnecessary billing.
+
+## Results & Evaluation
+Because this dataset is wildly imbalanced (284,807 legitimate vs. 492 fraudulent), standard accuracy is a misleading metric. Instead, we evaluated our model using Precision-Recall AUC (PR-AUC) and the Confusion Matrix.
+
+By tuning the decision threshold and utilizing XGBoost's `scale_pos_weight`, our model successfully isolates fraudulent spikes while minimizing friction for legitimate customers.
+
+## Governance & Bias Check
+We take responsible AI seriously. In the final phase of our pipeline, we explicitly spin up a SageMaker Clarify container to generate HTML/JSON reports checking the model for feature bias. Additionally, every successful training run is cataloged in the Model Registry with an attached Model Card detailing its intended use and limitations.
