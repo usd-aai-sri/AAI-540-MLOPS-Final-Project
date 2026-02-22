@@ -28,6 +28,7 @@ My pipeline consists of the following sequential stages:
 ├── data/                               # Dummy/sample data snippets
 ├── fraud_detection_pipeline.ipynb      # Main Jupyter Notebook with end-to-end SageMaker blocks
 └── requirements.txt                    # Python dependencies
+```
 
 ## Getting Started
 
